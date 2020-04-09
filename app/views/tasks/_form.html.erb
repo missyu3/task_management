@@ -1,0 +1,12 @@
+<%= form_with(model: task, local: true) do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %><br>
+  <%= f.label :content %>
+  <%= f.text_area :content %><br>
+  <%= f.label :status %>
+  <%= f.select(:status, TasksHelper::LIMIT_STATUS) %><br>
+  <% now = today %><br>
+  <%= f.label :limit %>
+  <%= f.date_select :limit, default: { year: now.year, month: now.month, day: now.day } %><br>
+  <%= f.submit %><br>
+<% end %>
