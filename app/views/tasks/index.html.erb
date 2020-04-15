@@ -1,6 +1,6 @@
 <%= link_to "新規作成", new_task_path %><br>
 <% @tasks.each do |task| %>
-  <%= task.title %><br>
+  <%= link_to task.title, task_path(task.id) %><br>
   <%= task.content %><br>
   <%= view_limit_status(task.status) %><br>
   <%= task.limit %><br>
