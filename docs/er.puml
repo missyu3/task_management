@@ -32,7 +32,7 @@ entity "tags" {
 }
 
 users ||--o{ tasks
-tasks }o--o{ tags
+tasks ||--o{ tags
 
 @enduml
 
