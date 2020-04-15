@@ -7,6 +7,6 @@
   <%= f.select(:status, TasksHelper::LIMIT_STATUS) %><br>
   <% now = today %><br>
   <%= f.label :limit %>
-  <%= f.date_select :limit, default: { year: now.year, month: now.month, day: now.day } %><br>
+  <%= f.date_select :limit, use_month_numbers: true, default: { year: now.year, month: now.month, day: now.day } %><br>
   <%= f.submit %><br>
 <% end %>
