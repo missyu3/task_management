@@ -37,7 +37,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         FactoryBot.create(:task, id:4, title: "test4", content: "content4")
         visit tasks_path
       end
-      it "title３が一覧画面に表示されていないか" do
+      it "content3が一覧画面に表示されていないか" do
         click_on "delete_3"
         expect(page).to_not have_content "content3"
       end 
@@ -110,6 +110,19 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
 
+  describe 'タスク編集画面' do
+    context '任意のタスク編集画面に遷移後、該当タスクの編集を行い一覧画面に遷移する' do
+      before do
+        task = FactoryBot.create(:task, title: "test1" , content: "content1" , status: 2 , limit: "2024-05-23")
+        visit edit_task_path(task.id)
+      end
+      it "contentをcontent1からhoge1に変更" do
+        fill_in "内容", with: "hoge1"
+        click_on "更新する"
+        expect(page).to have_content "hoge1"
+      end
+    end
+  end
   describe 'タスク詳細画面' do
 
     context '任意のタスク詳細画面に遷移したら、該当タスクの内容が表示されたページに遷移する' do
