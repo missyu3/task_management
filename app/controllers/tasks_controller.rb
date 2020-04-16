@@ -17,7 +17,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: "タスク#{@task.title}の更新を行いました。"
+      redirect_to tasks_path, notice: I18n.t( :task_update, title: @task.title)
     else
       render "edit"
     end
