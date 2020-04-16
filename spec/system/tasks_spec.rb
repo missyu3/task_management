@@ -15,7 +15,8 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content "test2"
       end
     end
-    context '状態の数値を文言に変換している' do
+
+    context '一覧画面に表示されている状態が数値から状態名称に変換されているか' do
       before do
         FactoryBot.create(:task, status: 0)
         FactoryBot.create(:task, status: 1)
@@ -42,11 +43,11 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスク登録画面で、必要項目を入力してcreateボタンを押したらデータが保存される' do
       before do
         visit new_task_path
-        fill_in "Title", with: "test1"
-        fill_in "Content", with: "content1"
-        select '着手中', from: 'Status'
-        select_date("2023/8/27","Limit")
-        click_on "Create Task"
+        fill_in "タイトル", with: "test1"
+        fill_in "内容", with: "content1"
+        select '着手中', from: '状態'
+        select_date("2023/8/27","期日")
+        click_on "登録する"
       end
       it '作成済みのタスクのタイトルが表示される' do
         expect(page).to have_content "test1"
