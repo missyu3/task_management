@@ -1,12 +1,10 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  let(:task_1) {task_1 = FactoryBot.create(:task, title: "test1" , content: "content1" , status: 2 , limit: "2024-05-23")}
-
   describe 'タスク一覧画面' do
 
     context '一覧画面に登録したタスクがタスク一覧画面に遷移したら、作成済みのタスクが表示される表示する時' do
       before do
-        task_1
+        FactoryBot.create(:task, title: "test1" , content: "content1" , status: 2 , limit: "2024-05-23")
         FactoryBot.create(:task, title: "test2" , content: "content2" , status: 3 , limit: "2025-08-12")
         visit tasks_path
       end
@@ -29,6 +27,20 @@ RSpec.describe 'タスク管理機能', type: :system do
       it 'タスクが作成日時の降順に並んでいる' do
         expect(Task.all.order("created_at DESC").map(&:id)).to eq [2,4,3,1]
       end
+    end
+
+    context '一覧画面に表示されているデータが削除されているか' do
+      before do
+        FactoryBot.create(:task, id:1, title: "test1", content: "content1")
+        FactoryBot.create(:task, id:2, title: "test2", content: "content2")
+        FactoryBot.create(:task, id:3, title: "test3", content: "content3")
+        FactoryBot.create(:task, id:4, title: "test4", content: "content4")
+        visit tasks_path
+      end
+      it "title３が一覧画面に表示されていないか" do
+        click_on "delete_3"
+        expect(page).to_not have_content "content3"
+      end 
     end
 
     context '一覧画面に表示されている状態が数値から状態名称に変換されているか' do
@@ -102,7 +114,8 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context '任意のタスク詳細画面に遷移したら、該当タスクの内容が表示されたページに遷移する' do
       before do
-        visit task_path(task_1.id)
+        task = FactoryBot.create(:task, title: "test1" , content: "content1" , status: 2 , limit: "2024-05-23")
+        visit task_path(task.id)
       end
       it "詳細画面に選択されたタスクが表示されているか" do
           expect(page).to have_content "test1"

@@ -5,6 +5,6 @@
   <%= view_limit_status(task.status) %><br>
   <%= task.limit %><br>
   <%= task.created_at %><br>
-  <%= link_to "更新", edit_task_path(task.id) %><br>
-  <%= link_to "削除", task_path(task.id) ,method: :delete %><br>
+  <%= link_to "更新", edit_task_path(task.id) ,id: "edit_#{task.id}"%><br>
+  <%= link_to "削除", task_path(task.id) ,method: :delete ,id: "delete_#{task.id}"%><br>
 <% end %>
