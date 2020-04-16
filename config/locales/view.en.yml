@@ -1,0 +1,5 @@
+---
+ja:
+  task_create: Created task %{title}.
+  task_update: Updated task %{title}.
+  task_delete: Deleted task %{title}.

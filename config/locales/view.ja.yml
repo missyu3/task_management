@@ -1,0 +1,5 @@
+---
+ja:
+  task_create: タスク%{title}の作成を行いました。
+  task_update: タスク%{title}の更新を行いました。
+  task_delete: タスク%{title}の削除を行いました。
