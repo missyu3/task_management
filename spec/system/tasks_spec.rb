@@ -15,7 +15,19 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content "test2"
       end
     end
+    context '複数のタスクを作成した場合' do
+      before do
+        FactoryBot.create(:task, id: 1, created_at: Time.current + 1.days)
+        FactoryBot.create(:task, id: 2, created_at: Time.current + 4.days)
+        FactoryBot.create(:task, id: 3, created_at: Time.current + 2.days)
+        FactoryBot.create(:task, id: 4, created_at: Time.current + 3.days)
+        visit tasks_path
+      end
 
+      it 'タスクが作成日時の降順に並んでいる' do
+        expect(Task.all.order("created_at DESC").map(&:id)).to eq [2,4,3,1]
+      end
+    end
     context '一覧画面に表示されている状態が数値から状態名称に変換されているか' do
       before do
         FactoryBot.create(:task, status: 0)
