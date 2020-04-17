@@ -1,10 +1,27 @@
 <%= link_to I18n.t(:button_create), new_task_path %><br>
 <% @tasks.each do |task| %>
-  <%= link_to task.title, task_path(task.id) %><br>
-  <%= task.content %><br>
-  <%= view_limit_status(task.status) %><br>
-  <%= task.limit %><br>
-  <%= task.created_at %><br>
-  <%= link_to I18n.t(:button_update), edit_task_path(task.id) ,id: "edit_#{task.id}"%><br>
-  <%= link_to I18n.t(:button_delete), task_path(task.id) ,method: :delete ,id: "delete_#{task.id}"%><br>
+  <div class="panel panel-success">
+    <div class="panel-body">
+      <%= link_to task.title, task_path(task.id) %>
+    </div>
+    <div class="panel-footer">
+      <%= task.content %>
+    </div>
+    <div class="panel-footer">
+      <%= view_limit_status(task.status) %>
+    </div>
+    <div class="panel-footer">
+      <%= task.limit %>
+    </div>
+    <div class="panel-footer">
+      <%= task.created_at %>
+    </div>
+    <div class="panel-footer">
+      <%= link_to I18n.t(:button_update), edit_task_path(task.id) ,id: "edit_#{task.id}"%>
+    </div>
+    <div class="panel-footer">
+      <%= link_to I18n.t(:button_delete), task_path(task.id) ,method: :delete ,id: "delete_#{task.id}"%>
+    </div>
+  </div>
 <% end %>
+<%= paginate @tasks %>
