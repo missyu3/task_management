@@ -16,19 +16,6 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
 
-    context '複数のタスクを作成した場合' do
-      before do
-        FactoryBot.create(:task, id: 1, created_at: Time.current + 1.days)
-        FactoryBot.create(:task, id: 2, created_at: Time.current + 4.days)
-        FactoryBot.create(:task, id: 3, created_at: Time.current + 2.days)
-        FactoryBot.create(:task, id: 4, created_at: Time.current + 3.days)
-        visit tasks_path
-      end
-      it 'タスクが作成日時の降順に並んでいる' do
-        expect(Task.all.order("created_at DESC").map(&:id)).to eq [2,4,3,1]
-      end
-    end
-
     context '一覧画面に表示されているデータが削除されているか' do
       before do
         FactoryBot.create(:task, id:1, title: "test1", content: "content1")
@@ -95,17 +82,6 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
       it '作成済みのタスクの終了月が表示される' do
         expect(page).to have_content "27"
-      end
-    end
-
-    context 'タスク登録画面で、バリデーション機能が正常に動くか' do
-      it "titleが空ならバリデーションが通らない" do
-        task = FactoryBot.build(:task, title: "")
-        expect(task).not_to be_valid
-      end
-      it "contentが空ならバリデーションが通らない" do
-        task = FactoryBot.build(:task, content: "")
-        expect(task).not_to be_valid
       end
     end
   end
