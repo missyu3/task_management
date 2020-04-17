@@ -17,7 +17,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
 
     context '複数のタスクを作成した場合' do
-      before dora
+      before do
         FactoryBot.create(:task, id: 1, created_at: Time.current + 1.days)
         FactoryBot.create(:task, id: 2, created_at: Time.current + 4.days)
         FactoryBot.create(:task, id: 3, created_at: Time.current + 2.days)
