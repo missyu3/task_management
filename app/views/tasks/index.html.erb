@@ -1,10 +1,10 @@
-<%= link_to "新規作成", new_task_path %><br>
+<%= link_to I18n.t(:button_create), new_task_path %><br>
 <% @tasks.each do |task| %>
   <%= link_to task.title, task_path(task.id) %><br>
   <%= task.content %><br>
   <%= view_limit_status(task.status) %><br>
   <%= task.limit %><br>
   <%= task.created_at %><br>
-  <%= link_to "更新", edit_task_path(task.id) ,id: "edit_#{task.id}"%><br>
-  <%= link_to "削除", task_path(task.id) ,method: :delete ,id: "delete_#{task.id}"%><br>
+  <%= link_to I18n.t(:button_update), edit_task_path(task.id) ,id: "edit_#{task.id}"%><br>
+  <%= link_to I18n.t(:button_delete), task_path(task.id) ,method: :delete ,id: "delete_#{task.id}"%><br>
 <% end %>

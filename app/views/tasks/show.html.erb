@@ -1,11 +1,11 @@
-<h1>タスク詳細</h1>
-Title
+<h1><%= I18n.t(:display_show) %></h1>
+<%= I18n.t("activerecord.attributes.task.title") %>
 <%= @task.title %><br>
-Content
+<%= I18n.t("activerecord.attributes.task.content") %>
 <%= @task.content %><br>
-Status
+<%= I18n.t("activerecord.attributes.task.status") %>
 <%= view_limit_status(@task.status) %><br>
-Limit
+<%= I18n.t("activerecord.attributes.task.limit") %>
 <%= @task.limit %><br>
-<%= link_to "更新", edit_task_path(@task.id) %><br>
-<%= link_to "削除", task_path(@task.id) ,method: :delete %><br>
+<%= link_to I18n.t(:button_update), edit_task_path(@task.id) %><br>
+<%= link_to I18n.t(:button_delete), task_path(@task.id) ,method: :delete %><br>

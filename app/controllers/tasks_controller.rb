@@ -7,7 +7,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to tasks_path, notice: "タスク#{@task.title}の作成を行いました。"
+      redirect_to tasks_path, notice: I18n.t( :message_task_create, title: @task.title)
     else
       render "new"
     end
@@ -17,7 +17,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: I18n.t( :task_update, title: @task.title)
+      redirect_to tasks_path, notice: I18n.t( :message_task_update, title: @task.title)
     else
       render "edit"
     end
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to tasks_path, notice: "タスク#{@task.title}の削除を行いました。"
+    redirect_to tasks_path, notice: I18n.t( :message_task_delete, title: @task.title)
   end
 
   private

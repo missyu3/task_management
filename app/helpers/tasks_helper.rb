@@ -1,6 +1,6 @@
 module TasksHelper
   require 'date'
-  LIMIT_STATUS = [["未着手",0],["着手中",1],["完了",2],["凍結",3]]
+  LIMIT_STATUS = [[I18n.t(:state_waiting),0],[I18n.t(:state_working),1],[I18n.t(:state_completed),2],[I18n.t(:state_pending),3]]
 
   def today
     Date.today
