@@ -1,7 +1,10 @@
 <%= link_to I18n.t(:button_create), new_task_path %><br>
+期日
+<%= link_to "▲", tasks_path(column: "limit", sort: "ASC") %>
+<%= link_to "▼", tasks_path(column: "limit", sort: "DESC") %><br>
 <% @tasks.each do |task| %>
   <div class="panel panel-success">
-    <div class="panel-body">
+    <div class="panel-body test_title">
       <%= link_to task.title, task_path(task.id) %>
     </div>
     <div class="panel-footer">
@@ -24,4 +27,4 @@
     </div>
   </div>
 <% end %>
-<%= paginate @tasks %>
+<%= paginate @tasks, left: 2, right: 2, remote: true%>

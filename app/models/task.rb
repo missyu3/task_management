@@ -12,4 +12,10 @@ class Task < ApplicationRecord
       self.order(:limit)
     end
   end
+
+  def self.order_by(sort_column,sort_direction)
+    sort_column ||= "created_at"
+    sort_direction ||= "DESC"
+    self.order(Hash[sort_column, sort_direction])
+  end
 end

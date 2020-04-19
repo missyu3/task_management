@@ -52,6 +52,32 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content "凍結"
       end 
     end
+    context '一覧画面でソート機能が正常に稼働しているか' do
+      before do
+        FactoryBot.create(:task, id: 1,title: "title1", limit: Time.current + 1.days)
+        FactoryBot.create(:task, id: 2,title: "title2", limit: Time.current + 4.days)
+        FactoryBot.create(:task, id: 3,title: "title3", limit: Time.current + 2.days)
+        FactoryBot.create(:task, id: 4,title: "title4", limit: Time.current + 3.days)
+        visit tasks_path
+      end
+      it "limitのOrderByの降順が効いているか" do
+        click_on '▼'
+        #おそらく、画面描画前に処理が実施されているため、エラーになる時とならない時がある。binding.irbで止めると問題ない
+        tasks = Array.new
+        page.find_all('.test_title').each do |item|
+          tasks.push(item.text)
+        end
+        expect(tasks).to eq ["title2","title4","title3","title1"]
+      end
+      it "limitのOrderByの昇順が効いているか" do
+        click_on '▲'
+        tasks = Array.new_task_path
+        page.all('.test_title').each do |item|
+          tasks.push(item.text)
+        end
+        expect(tasks).to eq ["title1","title3","title4","title2"]
+      end
+    end
   end
 
   describe '新規タスク登録画面' do

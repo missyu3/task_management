@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :find_params, only: [:edit, :update, :show, :destroy]
 
   PER = 5
-  
+
   def new
     @task = Task.new
   end
@@ -27,7 +27,8 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = Task.page(params[:page]).per(PER).order_by_created_at
+    task = Task.all.order_by(params[:column], params[:sort])
+    @tasks = task.page(params[:page]).per(PER)
   end
 
   def show; end
