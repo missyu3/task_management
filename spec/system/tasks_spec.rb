@@ -64,6 +64,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on '▼'
         #おそらく、画面描画前に処理が実施されているため、エラーになる時とならない時がある。binding.irbで止めると問題ない
         tasks = Array.new
+        expect(page).to have_content "title1"
         page.find_all('.test_title').each do |item|
           tasks.push(item.text)
         end
@@ -71,7 +72,8 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
       it "limitのOrderByの昇順が効いているか" do
         click_on '▲'
-        tasks = Array.new_task_path
+        tasks = Array.new
+        expect(page).to have_content "title1"
         page.all('.test_title').each do |item|
           tasks.push(item.text)
         end
