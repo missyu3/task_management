@@ -1,38 +1,24 @@
 <%= link_to I18n.t(:button_create), new_task_path %><br>
 <%= form_with url: tasks_path, method: :get, local: true do |form| %>
   <%= form.text_field :title , value: @where[:title] %>
-  <%= form.select(:status, options_for_select(TasksHelper::LIMIT_STATUS, @where[:status]),include_blank:true) %><br>
+  <%= form.select(:status, options_for_select(TasksHelper::LIMIT_STATUS, @where[:status]),include_blank:true) %>
+  <%= form.select(:priority, options_for_select(TasksHelper::PRIORITY_STATUS, @where[:priority]),include_blank:true) %><br>
   <%= form.submit 'Search', name: nil %>
 <% end %> 
-  期限
-  <%= link_to "▲", tasks_path(column: "limit", sort: "ASC", title: @where[:title], status: @where[:status]) %>
-  <%= link_to "▼", tasks_path(column: "limit", sort: "DESC", title: @where[:title], status: @where[:status]) %><br>
-<div id = "task_list">
-  <% @tasks.each do |task| %>
-    <div class="panel panel-success">
-    <%= "ID:#{task.id}" %>
-      <div class="panel-body test_title">
-        <%= link_to task.title, task_path(task.id) %>
-      </div>
-      <div class="panel-footer">
-        <%= task.content %>
-      </div>
-      <div class="panel-footer">
-        <%= view_limit_status(task.status) %>
-      </div>
-      <div class="panel-footer">
-        <%= "期限：#{task.limit}" %>
-      </div>
-      <div class="panel-footer">
-        <%= task.created_at %>
-      </div>
-      <div class="panel-footer">
-        <%= link_to I18n.t(:button_update), edit_task_path(task.id) ,id: "edit_#{task.id}"%>
-      </div>
-      <div class="panel-footer">
-        <%= link_to I18n.t(:button_delete), task_path(task.id) ,method: :delete ,id: "delete_#{task.id}"%>
-      </div>
-    </div>
-  <% end %>
-</div>
+<%= link_to "▲", tasks_path(column: "limit", sort: "ASC", title: @where[:title], status: @where[:status]) %>
+<%= link_to "▼", tasks_path(column: "limit", sort: "DESC", title: @where[:title], status: @where[:status]) %><br>
+<% @tasks.each do |task| %>
+  <%= "ID:#{task.id}" %>
+  <span class="test_title">
+    <%= link_to task.title, task_path(task.id) %>
+  </span>
+  <%= task.content %>
+  <%= view_limit_status(task.status) %>
+  <%= "期限：#{task.limit}" %>
+  <%= view_priority_status(task.priority) %>
+  <%= task.created_at %>
+  <%= link_to I18n.t(:button_update), edit_task_path(task.id) ,id: "edit_#{task.id}"%>
+  <%= link_to I18n.t(:button_delete), task_path(task.id) ,method: :delete ,id: "delete_#{task.id}"%>
+  <br>
+<% end %>
 <%= paginate @tasks, left: 2, right: 2 %>

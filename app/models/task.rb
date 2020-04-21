@@ -4,6 +4,7 @@ class Task < ApplicationRecord
   scope :created_before, -> { order(created_at: :desc) }
   scope :title_include, -> (title) { where("title LIKE ?", "%#{title}%") if title.present?}
   scope :status_equal, -> (status) { where("status = ?", status) if status.present? }
+  scope :priority_equal, -> (priority) {where("priority = ?",priority) if priority.present?}
 
   def self.order_by(sort_column,sort_direction)
     sort_column ||= "created_at"

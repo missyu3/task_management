@@ -25,8 +25,15 @@ RSpec.describe Task, type: :model do
     FactoryBot.create(:task, id: 2, status: 1)
     FactoryBot.create(:task, id: 3, status: 2)
     FactoryBot.create(:task, id: 4, status: 3)
-    task1 = Task.all.status_equal("2")
-    expect(task1.first.id).to eq 3
+    task1 = Task.all.status_equal("2").first
+    expect(task1.id).to eq 3
+  end
+  it "【Scope】priorityの完全一致の検索が行えているか" do
+    FactoryBot.create(:task, id: 1, priority: 0)
+    FactoryBot.create(:task, id: 2, priority: 1)
+    FactoryBot.create(:task, id: 3, priority: 2)
+    task1 = Task.all.priority_equal("2").first
+    expect(task1.id).to eq 3
   end
   it "【Scope】created_atのOrderByが効いているか" do
     FactoryBot.create(:task, id: 1, created_at: Time.current + 1.days)

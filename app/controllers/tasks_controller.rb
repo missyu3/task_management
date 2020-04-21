@@ -28,16 +28,16 @@ class TasksController < ApplicationController
 
   def index
     tasks = Task.all
-    @where = {title: nil, status: nil}
+    @where = {title: nil, status: nil, priority: nil}
     if params[:sort]
-      tasks = Task.all.title_include(params[:title]).status_equal(params[:status])
+      tasks = Task.all.title_include(params[:title]).status_equal(params[:status]).priority_equal(params[:priority])
       tasks = tasks.order_by(params[:column], params[:sort])
       @tasks = tasks.page(params[:page]).per(PER)
-      @where = {title: params[:title], status: params[:status]}
+      @where = {title: params[:title], status: params[:status], priority: params[:priority]}
     elsif params[:title]
-      tasks = Task.all.title_include(params[:title]).status_equal(params[:status]).created_before
+      tasks = Task.all.title_include(params[:title]).status_equal(params[:status]).priority_equal(params[:priority]).created_before
       @tasks = tasks.page(params[:page]).per(PER)
-      @where = {title: params[:title], status: params[:status]}
+      @where = {title: params[:title], status: params[:status], priority: params[:priority]}
     else
       @tasks = tasks.created_before.page(params[:page]).per(PER)
     end
@@ -56,6 +56,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :status, :limit, :user_id)
+    params.require(:task).permit(:title, :content, :status, :limit, :priority, :user_id)
   end
 end
