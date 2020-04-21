@@ -27,8 +27,20 @@ class TasksController < ApplicationController
   end
 
   def index
-    task = Task.all.order_by(params[:column], params[:sort])
-    @tasks = task.page(params[:page]).per(PER)
+    tasks = Task.all
+    @where = {title: nil, status: nil}
+    if params[:sort]
+      tasks = Task.all.title_include(params[:title]).status_equal(params[:status])
+      tasks = tasks.order_by(params[:column], params[:sort])
+      @tasks = tasks.page(params[:page]).per(PER)
+      @where = {title: params[:title], status: params[:status]}
+    elsif params[:title].present?
+      tasks = Task.all.title_include(params[:title]).status_equal(params[:status]).created_before
+      @tasks = tasks.page(params[:page]).per(PER)
+      @where = {title: params[:title], status: params[:status]}
+    else
+      @tasks = tasks.created_before.page(params[:page]).per(PER)
+    end
   end
 
   def show; end
@@ -46,5 +58,7 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:title, :content, :status, :limit, :user_id)
   end
+
+
 
 end
