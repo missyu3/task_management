@@ -5,8 +5,12 @@
   <%= form.select(:priority, options_for_select(TasksHelper::PRIORITY_STATUS, @where[:priority]),include_blank:true) %><br>
   <%= form.submit 'Search', name: nil %>
 <% end %> 
-<%= link_to "▲", tasks_path(column: "limit", sort: "ASC", title: @where[:title], status: @where[:status]) %>
-<%= link_to "▼", tasks_path(column: "limit", sort: "DESC", title: @where[:title], status: @where[:status]) %><br>
+期限
+<%= link_to "▲", tasks_path(column: "limit", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority]) %>
+<%= link_to "▼", tasks_path(column: "limit", sort: "DESC", title: @where[:title], status: @where[:status], priority: @where[:priority]) %><br>
+重要度
+<%= link_to "▲", tasks_path(column: "priority", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority]) %>
+<%= link_to "▼", tasks_path(column: "priority", sort: "DESC", title: @where[:title], status: @where[:status], priority: @where[:priority]) %><br>
 <% @tasks.each do |task| %>
   <%= "ID:#{task.id}" %>
   <span class="test_title">

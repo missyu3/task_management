@@ -5,6 +5,7 @@
   <%= f.text_area :content %><br>
   <%= f.label :status %>
   <%= f.select(:status, TasksHelper::LIMIT_STATUS) %><br>
+  <%= f.label :priority %>
   <%= f.select(:priority, TasksHelper::PRIORITY_STATUS) %><br>
   <% now = today %><br>
   <%= f.label :limit %>
