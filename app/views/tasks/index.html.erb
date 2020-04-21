@@ -1,15 +1,16 @@
 <%= link_to I18n.t(:button_create), new_task_path %><br>
-期日
 <%= form_with url: tasks_path, method: :get, local: true do |form| %>
   <%= form.text_field :title , value: @where[:title] %>
   <%= form.select(:status, options_for_select(TasksHelper::LIMIT_STATUS, @where[:status]),include_blank:true) %><br>
   <%= form.submit 'Search', name: nil %>
-  <%= link_to "▲", tasks_path(column: "limit", sort: "ASC", title: @where[:title], status: @where[:status]), remote: true %>
-  <%= link_to "▼", tasks_path(column: "limit", sort: "DESC", title: @where[:title], status: @where[:status]), remote: true %><br>
 <% end %> 
+  期限
+  <%= link_to "▲", tasks_path(column: "limit", sort: "ASC", title: @where[:title], status: @where[:status]) %>
+  <%= link_to "▼", tasks_path(column: "limit", sort: "DESC", title: @where[:title], status: @where[:status]) %><br>
 <div id = "task_list">
   <% @tasks.each do |task| %>
     <div class="panel panel-success">
+    <%= "ID:#{task.id}" %>
       <div class="panel-body test_title">
         <%= link_to task.title, task_path(task.id) %>
       </div>
@@ -20,7 +21,7 @@
         <%= view_limit_status(task.status) %>
       </div>
       <div class="panel-footer">
-        <%= task.limit %>
+        <%= "期限：#{task.limit}" %>
       </div>
       <div class="panel-footer">
         <%= task.created_at %>
@@ -34,4 +35,4 @@
     </div>
   <% end %>
 </div>
-<%= paginate @tasks, left: 2, right: 2, remote: true %>
+<%= paginate @tasks, left: 2, right: 2 %>

@@ -34,7 +34,7 @@ class TasksController < ApplicationController
       tasks = tasks.order_by(params[:column], params[:sort])
       @tasks = tasks.page(params[:page]).per(PER)
       @where = {title: params[:title], status: params[:status]}
-    elsif params[:title].present?
+    elsif params[:title]
       tasks = Task.all.title_include(params[:title]).status_equal(params[:status]).created_before
       @tasks = tasks.page(params[:page]).per(PER)
       @where = {title: params[:title], status: params[:status]}
@@ -58,7 +58,4 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:title, :content, :status, :limit, :user_id)
   end
-
-
-
 end
