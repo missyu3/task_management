@@ -2,7 +2,7 @@ require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   describe 'タスク一覧画面' do
 
-    context '一覧画面に登録したタスクがタスク一覧画面に遷移したら、作成済みのタスクが表示される表示する時' do
+    context 'タスク一覧画面の表示機能に関して' do
       before do
         FactoryBot.create(:task, title: "test1" , content: "content1" , status: 2 , limit: "2024-05-23")
         FactoryBot.create(:task, title: "test2" , content: "content2" , status: 3 , limit: "2025-08-12")
