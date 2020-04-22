@@ -9,5 +9,6 @@ ja:
         content: 内容
         status: 状態
         limit: 期日
+        priority: 重要度
         created_at: 作成日時
         updated_at: 更新日時

@@ -1,28 +1,31 @@
-<%= link_to I18n.t(:button_create), new_task_path %><br>
-<%= form_with url: tasks_path, method: :get, local: true do |form| %>
+<h1><%= I18n.t("display.show") %></h1>
+<%= link_to I18n.t("button.create"), new_task_path %><br>
+<%= form_with(model: @task, url: tasks_path, method: :get, local: true) do |form| %>
+  <%= form.label :title %>
   <%= form.text_field :title , value: @where[:title] %>
-  <%= form.select(:status, options_for_select(TasksHelper::LIMIT_STATUS, @where[:status]),include_blank:true) %>
+  <%= form.label :status %>
+  <%= form.select(:status, options_for_select(TasksHelper::LIMIT_TASK_STATUS, @where[:status]),include_blank:true) %>
+  <%= form.label :priority %>
   <%= form.select(:priority, options_for_select(TasksHelper::PRIORITY_STATUS, @where[:priority]),include_blank:true) %><br>
-  <%= form.submit 'Search', name: nil %>
+  <%= form.submit(I18n.t("button.search")) %>
 <% end %> 
-期限
+<%= I18n.t(:limit) %>
 <%= link_to "▲", tasks_path(column: "limit", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority]) %>
 <%= link_to "▼", tasks_path(column: "limit", sort: "DESC", title: @where[:title], status: @where[:status], priority: @where[:priority]) %><br>
-重要度
+<%= I18n.t(:priority) %>
 <%= link_to "▲", tasks_path(column: "priority", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority]) %>
 <%= link_to "▼", tasks_path(column: "priority", sort: "DESC", title: @where[:title], status: @where[:status], priority: @where[:priority]) %><br>
 <% @tasks.each do |task| %>
-  <%= "ID:#{task.id}" %>
   <span class="test_title">
     <%= link_to task.title, task_path(task.id) %>
   </span>
   <%= task.content %>
-  <%= view_limit_status(task.status) %>
-  <%= "期限：#{task.limit}" %>
+  <%= view_task_status(task.status) %>
+  <%= task.limit %>
   <%= view_priority_status(task.priority) %>
   <%= task.created_at %>
-  <%= link_to I18n.t(:button_update), edit_task_path(task.id) ,id: "edit_#{task.id}"%>
-  <%= link_to I18n.t(:button_delete), task_path(task.id) ,method: :delete ,id: "delete_#{task.id}"%>
+  <%= link_to I18n.t("button.update"), edit_task_path(task.id) ,id: "edit_#{task.id}"%>
+  <%= link_to I18n.t("button.delete"), task_path(task.id) ,method: :delete ,id: "delete_#{task.id}"%>
   <br>
 <% end %>
 <%= paginate @tasks, left: 2, right: 2 %>

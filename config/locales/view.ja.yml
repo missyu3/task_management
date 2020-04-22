@@ -1,14 +1,24 @@
 ---
 ja:
-  message_task_create: タスク%{title}の作成を行いました。
-  message_task_update: タスク%{title}の更新を行いました。
-  message_task_delete: タスク%{title}の削除を行いました。
-  button_create: 新規作成
-  button_update: 更新
-  button_delete: 削除
-  display_show: 詳細画面
-  state_waiting: 未着手
-  state_working: 着手中
-  state_completed: 完了
-  state_pending: 凍結
-  
+  message: 
+    task_create: タスク%{title}の作成を行いました。
+    task_update: タスク%{title}の更新を行いました。
+    task_delete: タスク%{title}の削除を行いました。
+  button:
+    create: 新規作成
+    update: 更新
+    delete: 削除
+    search: 検索
+  state:
+    waiting: 未着手
+    working: 着手中
+    completed: 完了
+    pending: 凍結
+  priority:
+    high: 高
+    medium: 中
+    low: 低
+  display:
+    show: 詳細画面
+  limit: 期限
+  priority: 重要度

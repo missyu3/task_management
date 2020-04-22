@@ -10,7 +10,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to tasks_path, notice: I18n.t( :message_task_create, title: @task.title)
+      redirect_to tasks_path, notice: I18n.t("message.task_create", title: @task.title)
     else
       render "new"
     end
@@ -20,34 +20,40 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: I18n.t( :message_task_update, title: @task.title)
+      redirect_to tasks_path, notice: I18n.t("message.task_update", title: @task.title)
     else
       render "edit"
     end
   end
 
   def index
-    tasks = Task.all
-    @where = {title: nil, status: nil, priority: nil}
+    params_task = params[:task]
+    
+    if params_task
+      tasks = tasks.search_index(params_task[:title],params_task[:status],params_task[:priority]) 
+      @where = {title: params_task[:title], status: params_task[:status], priority: params_task[:priority]}
+    else
+      tasks = Task.all
+      @where = {title: nil, status: nil, priority: nil}
+    end
     if params[:sort]
-      tasks = Task.all.title_include(params[:title]).status_equal(params[:status]).priority_equal(params[:priority])
       tasks = tasks.order_by(params[:column], params[:sort])
       @tasks = tasks.page(params[:page]).per(PER)
-      @where = {title: params[:title], status: params[:status], priority: params[:priority]}
-    elsif params[:title]
-      tasks = Task.all.title_include(params[:title]).status_equal(params[:status]).priority_equal(params[:priority]).created_before
+    elsif params_task && params_task[:title].present?
+      tasks = tasks.created_before
       @tasks = tasks.page(params[:page]).per(PER)
-      @where = {title: params[:title], status: params[:status], priority: params[:priority]}
     else
       @tasks = tasks.created_before.page(params[:page]).per(PER)
     end
+    #form_withに与える引数はTaskクラスにしないと文言の変換が行われないため、@task = Task.newする。
+    @task = Task.new
   end
 
   def show; end
 
   def destroy
     @task.destroy
-    redirect_to tasks_path, notice: I18n.t( :message_task_delete, title: @task.title)
+    redirect_to tasks_path, notice: I18n.t("message.task_delete", title: @task.title)
   end
 
   private
