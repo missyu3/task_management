@@ -4,7 +4,7 @@
 <%= I18n.t("activerecord.attributes.task.content") %>
 <%= @task.content %><br>
 <%= I18n.t("activerecord.attributes.task.status") %>
-<%= view_limit_status(@task.status) %><br>
+<%= view_task_status(@task.status) %><br>
 <%= I18n.t("activerecord.attributes.task.limit") %>
 <%= @task.limit %><br>
 <%= link_to I18n.t(:button_update), edit_task_path(@task.id) %><br>

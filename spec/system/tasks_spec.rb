@@ -61,7 +61,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit tasks_path
       end
       it "limitのOrderByの降順が効いているか" do
-        click_on '▼'
+        click_on 'limit_desc'
         #おそらく、画面描画前に処理が実施されているため、エラーになる時とならない時がある。binding.irbで止めると問題ない
         tasks = Array.new
         expect(page).to have_content "title1"
@@ -71,7 +71,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(tasks).to eq ["title2","title4","title3","title1"]
       end
       it "limitのOrderByの昇順が効いているか" do
-        click_on '▲'
+        click_on 'limit_asc'
         tasks = Array.new
         expect(page).to have_content "title1"
         page.all('.test_title').each do |item|

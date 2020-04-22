@@ -1,5 +1,5 @@
 <h1><%= I18n.t("display.show") %></h1>
-<%= link_to I18n.t("button.create"), new_task_path %><br>
+<%= link_to I18n.t("button.create"), new_task_path,{ class: "btn btn-info" } %><br>
 <%= form_with(model: @task, url: tasks_path, method: :get, local: true) do |form| %>
   <%= form.label :title %>
   <%= form.text_field :title , value: @where[:title] %>
@@ -10,11 +10,11 @@
   <%= form.submit(I18n.t("button.search")) %>
 <% end %> 
 <%= I18n.t(:limit) %>
-<%= link_to "▲", tasks_path(column: "limit", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority]) %>
-<%= link_to "▼", tasks_path(column: "limit", sort: "DESC", title: @where[:title], status: @where[:status], priority: @where[:priority]) %><br>
+<%= link_to "▲", tasks_path(column: "limit", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority]), { id: "limit_asc" } %>
+<%= link_to "▼", tasks_path(column: "limit", sort: "DESC", title: @where[:title], status: @where[:status], priority: @where[:priority]), { id: "limit_desc" } %><br>
 <%= I18n.t(:priority) %>
-<%= link_to "▲", tasks_path(column: "priority", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority]) %>
-<%= link_to "▼", tasks_path(column: "priority", sort: "DESC", title: @where[:title], status: @where[:status], priority: @where[:priority]) %><br>
+<%= link_to "▲", tasks_path(column: "priority", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority]), {id: "priority_asc"}  %>
+<%= link_to "▼", tasks_path(column: "priority", sort: "DESC", title: @where[:title], status: @where[:status], priority: @where[:priority]), {id: "priority_desc"}  %><br>
 <% @tasks.each do |task| %>
   <span class="test_title">
     <%= link_to task.title, task_path(task.id) %>
