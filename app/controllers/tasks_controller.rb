@@ -28,12 +28,11 @@ class TasksController < ApplicationController
 
   def index
     params_task = params[:task]
-    
+    tasks = Task.all
     if params_task
       tasks = tasks.search_index(params_task[:title],params_task[:status],params_task[:priority]) 
       @where = {title: params_task[:title], status: params_task[:status], priority: params_task[:priority]}
-    else
-      tasks = Task.all
+    else  
       @where = {title: nil, status: nil, priority: nil}
     end
     if params[:sort]

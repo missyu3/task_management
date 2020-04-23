@@ -2,21 +2,29 @@ require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   describe 'タスク一覧画面' do
 
-    context 'タスク一覧画面の表示機能に関して' do
+    context 'タスク一覧画面のタスク情報を画面表示する機能に関して' do
       before do
-        FactoryBot.create(:task, title: "test1" , content: "content1" , status: 2 , limit: "2024-05-23")
-        FactoryBot.create(:task, title: "test2" , content: "content2" , status: 3 , limit: "2025-08-12")
+        FactoryBot.create(:task)
         visit tasks_path
       end
-      it "task1が一覧画面に表示されているか" do
+      it "titleが一覧画面に表示されているか" do
         expect(page).to have_content "test1"
       end 
-      it "task2が一覧画面に表示されているか" do
-        expect(page).to have_content "test2"
+      it "contentが一覧画面に表示されているか" do
+        expect(page).to have_content "testes1"
+      end
+      it "stateが一覧画面に表示されているか" do
+        expect(page).to have_content "着手中"
+      end
+      it "limitが一覧画面に表示されているか" do
+        expect(page).to have_content "2024-05-23"
+      end
+      it "contentが一覧画面に表示されているか" do
+        expect(page).to have_content "低"
       end
     end
 
-    context '一覧画面に表示されているデータが削除されているか' do
+    context 'タスク一覧画面のタスク情報を削除する機能に関して' do
       before do
         FactoryBot.create(:task, id:1, title: "test1", content: "content1")
         FactoryBot.create(:task, id:2, title: "test2", content: "content2")
@@ -24,13 +32,33 @@ RSpec.describe 'タスク管理機能', type: :system do
         FactoryBot.create(:task, id:4, title: "test4", content: "content4")
         visit tasks_path
       end
-      it "content3が一覧画面に表示されていないか" do
+      it "test3が一覧画面に表示されていないか" do
         click_on "delete_3"
-        expect(page).to_not have_content "content3"
+        expect(page).to have_content "test3"
       end 
     end
 
-    context '一覧画面に表示されている状態が数値から状態名称に変換されているか' do
+    context '一覧画面の検索機能に関して' do
+      before do
+        FactoryBot.create(:task, id:1, title: "hogehoge1", status: "0", priority: "0")
+        FactoryBot.create(:task, id:2, title: "hogehoge2", status: "0", priority: "1")
+        FactoryBot.create(:task, id:3, title: "hogehoge3", status: "1", priority: "2")
+        FactoryBot.create(:task, id:4, title: "hogehoge4", status: "1", priority: "0")
+        FactoryBot.create(:task, id:5, title: "hogehoge5", status: "2", priority: "1")
+        FactoryBot.create(:task, id:6, title: "hugahuga6", status: "2", priority: "2")
+        visit tasks_path
+      end
+
+      it "hogehoge3のみが表示されているか" do
+        fill_in "タイトル", with: "geh"
+        select '着手中', from: '状態'
+        select '低', from: '重要度'
+        click_on "検索"
+        expect(page).to have_content "hogehoge3"
+      end 
+    end
+
+    context '一覧画面の状態の表示に関して' do
       before do
         FactoryBot.create(:task, status: 0)
         FactoryBot.create(:task, status: 1)
@@ -39,16 +67,16 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit tasks_path
       end
       # [["未着手",0],["着手中",1],["完了",2],["凍結",3]]
-      it "状態が0の時未着手が表示されているか" do        
+      it "状態が0の時、未着手が表示されているか" do        
         expect(page).to have_content "未着手"
       end 
-      it "状態が1の時着手中が表示されているか" do
+      it "状態が1の時、着手中が表示されているか" do
         expect(page).to have_content "着手中"
       end 
-      it "状態が2の時完了が表示されているか" do
+      it "状態が2の時、完了が表示されているか" do
         expect(page).to have_content "完了"
       end 
-      it "状態が3の時凍結が表示されているか" do
+      it "状態が3の時、凍結が表示されているか" do
         expect(page).to have_content "凍結"
       end 
     end

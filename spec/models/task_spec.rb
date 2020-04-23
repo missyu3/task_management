@@ -42,6 +42,7 @@ RSpec.describe Task, type: :model do
     FactoryBot.create(:task, id: 4, created_at: Time.current + 3.days)
     expect(Task.all.created_before.map(&:id)).to eq [2,4,3,1]
   end
+  
   it "【Method】limitのOrderByが効いているか" do
     FactoryBot.create(:task, id: 1, limit: Time.current + 1.days)
     FactoryBot.create(:task, id: 2, limit: Time.current + 4.days)
