@@ -1,13 +1,24 @@
 ---
-ja:
-  message_task_create: Created task %{title}.
-  message_task_update: Updated task %{title}.
-  message_task_delete: Deleted task %{title}.
-  button_create: New
-  button_update: Update
-  button_delete: Delete
-  display_show: ShowDisplay
-  state_waiting: Waiting
-  state_working: Working
-  state_completed: Completed
-  state_pending: Pending
+en:
+  message: 
+    task_create: Created task %{title}.
+    task_update: Updated task %{title}.
+    task_delete: Deleted task %{title}.
+  button:
+    create: New
+    update: Update
+    delete: Delete
+    search: Search
+  state:
+    waiting: Waiting
+    working: Working
+    completed: Completed
+    pending: Pending
+  priority:
+    high: High
+    medium: Medium
+    low: Low
+  display:
+    show: ShowDisplay
+    limit: Limit
+    priority: Priority
