@@ -41,9 +41,9 @@
         </td>
         <td><%= task.content %></td>
         <td><%= view_task_status(task.status) %></td>
-        <td><%= task.limit %></td>
+        <td><%= format_date(task.limit) %></td>
         <td><%= view_priority_status(task.priority) %></td>
-        <td><%= task.created_at %></td>
+        <td><%= format_date(task.created_at) %></td>
         <td><%= link_to I18n.t("button.update"), edit_task_path(task.id) ,id: "edit_#{task.id}", class: "btn btn-primary pull-left" %></td>
         <td><%= link_to I18n.t("button.delete"), task_path(task.id) ,method: :delete ,id: "delete_#{task.id}", class: "btn btn-danger pull-left"%></td>
       </tr>

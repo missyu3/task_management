@@ -7,6 +7,10 @@ module TasksHelper
     Date.today
   end
 
+  def format_date(date)
+    date.strftime("%Y年%m月%d日")
+  end
+
   def view_task_status(status_id)
     LIMIT_TASK_STATUS.find { |value,id| id == status_id.to_i }.first
   end
