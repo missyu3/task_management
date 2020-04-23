@@ -38,7 +38,7 @@ class TasksController < ApplicationController
     @tasks = tasks.page(params[:page]).per(PER)
     @where = {title: nil, status: nil, priority: nil}
     @where = params_task if params_task
-    #form_withに与える引数はTaskクラスにしないと文言の変換が行われないため、@task = Task.newする。
+    #form_withに与える引数はTaskクラスにしないとLabelの文言変換が行われないため、@task = Task.newをする。
     @task = Task.new
   end
 
