@@ -17,7 +17,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content "着手中"
       end
       it "limitが一覧画面に表示されているか" do
-        expect(page).to have_content "2024-05-23"
+        expect(page).to have_content "2024年05月23日"
       end
       it "contentが一覧画面に表示されているか" do
         expect(page).to have_content "低"
@@ -172,7 +172,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content "完了"
       end
       it "詳細画面に終了期日が表示されているか" do
-        expect(page).to have_content "2024-05-23"
+        expect(page).to have_content "2024年05月23日"
       end
     end
   end

@@ -27,23 +27,17 @@ class TasksController < ApplicationController
   end
 
   def index
-    params_task = params[:task]
     tasks = Task.all
-    if params_task
-      tasks = tasks.search_index(params_task[:title],params_task[:status],params_task[:priority]) 
-      @where = {title: params_task[:title], status: params_task[:status], priority: params_task[:priority]}
-    else  
-      @where = {title: nil, status: nil, priority: nil}
-    end
+    params_task = params[:task]
+    tasks.search_index(params_task[:title],params_task[:status],params_task[:priority]) if params_task
     if params[:sort]
       tasks = tasks.order_by(params[:column], params[:sort])
-      @tasks = tasks.page(params[:page]).per(PER)
-    elsif params_task && params_task[:title].present?
-      tasks = tasks.created_before
-      @tasks = tasks.page(params[:page]).per(PER)
     else
-      @tasks = tasks.created_before.page(params[:page]).per(PER)
+      tasks = tasks.created_before
     end
+    @tasks = tasks.page(params[:page]).per(PER)
+    @where = {title: nil, status: nil, priority: nil}
+    @where = params_task if params_task
     #form_withに与える引数はTaskクラスにしないと文言の変換が行われないため、@task = Task.newする。
     @task = Task.new
   end
