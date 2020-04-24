@@ -1,7 +1,13 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  describe 'タスク一覧画面' do
-
+  before do
+    FactoryBot.create(:user)
+    visit tasks_path
+    fill_in "Eメール", with: "user@user.com"
+    fill_in "パスワード", with: "password"
+    click_button 'ログイン'
+  end
+  describe 'タスク一覧画面' do    
     context 'タスク一覧画面のタスク情報を画面表示する機能に関して' do
       before do
         FactoryBot.create(:task)

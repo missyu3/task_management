@@ -1,4 +1,4 @@
-<h1><%= I18n.t("display.show") %></h1>
+<h1><%= I18n.t("display.index") %></h1>
 <%= form_with(model: @task, url: tasks_path, method: :get, local: true) do |form| %>
   <%= form.label :title %>
   <%= form.text_field :title , value: @where[:title] %>
@@ -16,6 +16,7 @@
   <thead>
     <tr>
       <th>タイトル</th>
+      <th>担当者</th>
       <th>コンテンツ</th>
       <th>状態</th>
       <th>
@@ -39,6 +40,7 @@
         <td class="test_title">
           <%= link_to task.title, task_path(task.id) %>
         </td>
+        <td><%= task.user.name %></td>
         <td><%= task.content %></td>
         <td><%= view_task_status(task.status) %></td>
         <td><%= format_date(task.limit) %></td>

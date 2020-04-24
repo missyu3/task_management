@@ -1,4 +1,5 @@
-<% if @user.errors.any? %>
+<h1></h1>
+<% if @user && @user.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(@user.errors.count, "error") %> prohibited this <%= @user.name %> from being saved:</h2>
     <ul>
@@ -9,16 +10,8 @@
   </div>
 <% end %>
 
-<%= form_with(model: @user, local: true) do |f| %>
+<%= form_with(model: @user,scope: :session, url: sessions_path, local: true) do |f| %>
   <div class="container">
-    <div class="row">
-      <div class="col-md-2 text-right">
-        <%= f.label :name %>
-      </div>
-      <div class="col-md-10">
-        <%= f.text_field :name, { class: "form-control" }%>
-      </div> 
-    </div>
     <div class="row">
       <div class="col-md-2 text-right">
         <%= f.label :email %> 
@@ -36,18 +29,10 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-2 text-right">
-        <%= f.label :password_confirmation %>
-      </div>
-      <div class="col-md-10">
-        <%= f.password_field :password_confirmation, { class: "form-control" } %>
-      </div>
-    </div>
-    <div class="row">
       <div class="col-md-2">
       </div>
       <div class="col-md-8">
-        <%= f.submit class: "btn btn-info" %>
+        <%= f.submit "ログイン", { class: "btn btn-info login_btn" } %>
       </div>
     </div>
   </div>

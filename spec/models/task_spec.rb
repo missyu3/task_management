@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
+  before do
+    FactoryBot.create(:user)
+  end
   it "【Validation】titleが空ならバリデーションが通らない" do
     task = FactoryBot.build(:task, title: "")
     expect(task).not_to be_valid

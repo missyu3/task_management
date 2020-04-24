@@ -16,6 +16,6 @@ ja:
         name: 名前
         email: Eメール
         password: パスワード
-        password_confirmation: パスワード
+        password_confirmation: パスワード(再入力)
         created_at: 作成日時
         updated_at: 更新日時

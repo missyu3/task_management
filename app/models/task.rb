@@ -7,7 +7,7 @@ class Task < ApplicationRecord
   scope :status_equal, -> (status) { where("status = ?", status) if status.present? }
   scope :priority_equal, -> (priority) {where("priority = ?",priority) if priority.present?}
 
-  belong_to :user
+  belongs_to :user
 
   def self.search_index(title,status,priority)
     self.title_include(title).status_equal(status).priority_equal(priority)

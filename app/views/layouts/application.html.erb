@@ -8,6 +8,22 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <% if logged_in? %>
+            <%= link_to "Task", user_path(current_user.id), class: "navbar-brand"   %>
+            <div class="navbar-text"><%= "名前 : #{current_user.name}"%></div>
+            <%= link_to "プロフィール", user_path(current_user.id), class: "navbar-brand"  %>
+            <%= link_to "ログアウト", session_path(current_user.id), method: :delete, class: "navbar-brand"  %>
+          <% else %>
+            <%= link_to "Task", new_session_path, class: "navbar-brand"  %>
+            <%= link_to "ユーザー作成", new_user_path, class: "navbar-brand"  %>
+            <%= link_to "ログイン", new_session_path, class: "navbar-brand"  %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
     <div class="container">
       <% if notice %>
         <p class="alert alert-notice"><%= notice %></p>

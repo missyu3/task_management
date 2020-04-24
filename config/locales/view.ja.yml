@@ -20,5 +20,7 @@ ja:
     low: 低
   display:
     show: 詳細画面
+    index: 一覧画面
     limit: 期限
     priority: 重要度
+    user_page: ユーザー：%{name}の部屋
