@@ -27,7 +27,7 @@ class TasksController < ApplicationController
   end
 
   def index
-    tasks = Task.all
+    tasks = current_user.tasks
     params_task = params[:task]
     tasks.search_index(params_task[:title],params_task[:status],params_task[:priority]) if params_task
     if params[:sort]

@@ -86,6 +86,24 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content "凍結"
       end 
     end
+
+    context '一覧画面でログインしているユーザーのタスクしか表示されていないか' do
+      before do
+        user1 = FactoryBot.create(:user, id:2, name: "hogehoge1", email: "test1@test.com")
+        FactoryBot.create(:task, id:1, title: "hogehoge1", status: "0", priority: "0", user_id: 2)
+        FactoryBot.create(:task, id:2, title: "hogehoge2", status: "0", priority: "1", user_id: 1)
+        FactoryBot.create(:task, id:3, title: "hogehoge3", status: "1", priority: "2", user_id: 2)
+        visit tasks_path
+      end
+
+      it "hogehoge2のみが表示されているか" do
+        expect(page).to have_content "hogehoge2"
+      end 
+      it "hogehoge３が表示されていないか" do
+        expect(page).to_not have_content "hogehoge3"
+      end 
+    end
+
     context '一覧画面でソート機能が正常に稼働しているか' do
       before do
         FactoryBot.create(:task, id: 1,title: "title1", limit: Time.current + 1.days)
