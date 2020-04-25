@@ -9,6 +9,8 @@ ja:
     update: 更新
     delete: 削除
     search: 検索
+    attach_admin: 管理者権限を付与
+    delete_admin: 管理者権限を削除
   state:
     waiting: 未着手
     working: 着手中
@@ -24,3 +26,4 @@ ja:
     limit: 期限
     priority: 重要度
     user_page: ユーザー：%{name}の部屋
+    admin_page: 管理者：%{name}の部屋
