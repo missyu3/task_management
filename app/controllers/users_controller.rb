@@ -54,6 +54,7 @@ class UsersController < ApplicationController
   end
   
   def current_user_action_only
+    return if current_user.admin == true
     redirect_to user_path(current_user.id) unless @user && @user.id == current_user.id
   end
 
