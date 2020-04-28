@@ -16,20 +16,20 @@
     <div class="col-sm-2 text-right"></div>
     <div class="col-sm-10">
       <% if @user.admin %>
-        <%= link_to "管理者画面", admin_user_path(@user.id),class: "btn btn-info pull-left" %>
+        <%= link_to I18n.t("display.admin"), admin_user_path(@user.id),class: "btn btn-info pull-left" %>
       <% end %>
-      <%= link_to "タスク一覧", tasks_path,class: "btn btn-info pull-left" %>
+      <%= link_to I18n.t("button.tasks"), tasks_path,class: "btn btn-info pull-left" %>
     </div>
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th>タイトル</th>
-          <th>担当者</th>
-          <th>コンテンツ</th>
-          <th>状態</th>
+          <th><%= I18n.t("activerecord.attributes.task.title") %></th>
+          <th><%= I18n.t("activerecord.attributes.task.user_id") %></th>
+          <th><%= I18n.t("activerecord.attributes.task.content") %></th>
+          <th><%= I18n.t("activerecord.attributes.task.status") %></th>
           <th><%= I18n.t("display.limit") %></th>
           <th><%= I18n.t("display.priority") %></th>
-          <th>作成日時</th>
+          <th><%= I18n.t("activerecord.attributes.task.created_at") %></th>
         </tr>
       </thead>
       <tbody>

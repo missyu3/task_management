@@ -9,6 +9,7 @@ ja:
     update: 更新
     delete: 削除
     search: 検索
+    tasks: タスク一覧
     user_delete: ユーザー削除
     user_update: ユーザー更新
     user_create: ユーザー作成
@@ -27,6 +28,7 @@ ja:
     show: 詳細画面
     index: 一覧画面
     index: 一覧画面
+    admin: 管理者画面
     limit: 期限
     priority: 重要度
     user_page: ユーザー：%{name}の部屋
