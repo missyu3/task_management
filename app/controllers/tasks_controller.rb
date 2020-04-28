@@ -28,8 +28,8 @@ class TasksController < ApplicationController
 
   def index
     tasks = current_user.tasks
-    params_task = params[:task]
-    tasks.search_index(params_task[:title],params_task[:status],params_task[:priority]) if params_task
+    params_task = swich_params
+    tasks = tasks.search_index(params_task[:title],params_task[:status],params_task[:priority]) if params_task
     if params[:sort]
       tasks = tasks.order_by(params[:column], params[:sort])
     else
@@ -56,5 +56,13 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :content, :status, :limit, :priority, :user_id)
+  end
+
+  def swich_params
+    if params[:task]
+      params[:task]
+    else
+      {title: params[:title], status: params[:status], priority: params[:priority]}
+    end
   end
 end
