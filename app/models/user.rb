@@ -12,13 +12,4 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :tasks, dependent: :destroy
-
-  def self.update_params(params)
-    params.delete(:name) if params[:name].blank?
-    params.delete(:email) if params[:email].blank?
-    params.delete(:admin) if params[:admin].blank?
-    params.delete(:password) if params[:password].blank?
-    params.delete(:password_confirmation) if params[:password_confirmation].blank?
-    params
-  end
 end
