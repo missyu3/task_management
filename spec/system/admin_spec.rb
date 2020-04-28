@@ -16,15 +16,12 @@ RSpec.describe '管理者機能に関して', type: :system do
       it "管理者ページに遷移ができるか" do
         expect(page).to have_content "管理者：user1の部屋"
       end
-      it "ログインしているユーザーのみの時、権限を不要するボタンは非表示にしているか" do
-        expect(page).to have_content "ー"
-      end
       it "管理者権限を付与できているか" do
-        click_on "管理者権限を付与"
+        find(".admin_update_2").click
         expect(User.find_by(id: 2).admin).to eq true
       end
       it "管理者権限を削除できているか" do
-        click_on "管理者権限を削除"
+        find(".admin_delete_3").click
         expect(User.find_by(id: 3).admin).to eq false
       end
     end
@@ -51,7 +48,7 @@ RSpec.describe '管理者機能に関して', type: :system do
         expect(page).to have_content "user3"
       end
       it "ユーザー情報の編集が行えているか" do
-        click_on "ユーザー更新"
+        find(".edit_2").click
         fill_in "名前", with: "user2-1"
         fill_in "Eメール", with: "user2-1@user.com"
         fill_in "パスワード", with: "bbbbbb"
