@@ -1,0 +1,53 @@
+<%= form_with(model: user, local: true, scope: locals[:scope]) do |f| %>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2 text-right">
+        <%= f.label :name %>
+      </div>
+      <div class="col-md-10">
+        <%= f.text_field :name, { class: "form-control" }%>
+      </div> 
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">
+        <%= f.label :email %> 
+      </div>
+      <div class="col-md-10">
+        <%= f.email_field :email, { class: "form-control" } %>
+      </div>
+    </div>
+    <% if locals[:admin] %>
+      <div class="row">
+        <div class="col-md-2 text-right">
+          <%= f.label :admin %> 
+        </div>
+        <div class="col-md-10">
+          <%= f.check_box :admin, { class: "form-control" } %>
+        </div>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="col-md-2 text-right">
+        <%= f.label :password %>
+      </div>
+      <div class="col-md-10">
+        <%= f.password_field :password, { class: "form-control" } %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">
+        <%= f.label :password_confirmation %>
+      </div>
+      <div class="col-md-10">
+        <%= f.password_field :password_confirmation, { class: "form-control" } %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-8">
+        <%= f.submit class: "btn btn-info" %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -15,6 +15,7 @@ ja:
       user:
         name: 名前
         email: Eメール
+        admin: 管理者
         password: パスワード
         password_confirmation: パスワード(再入力)
         created_at: 作成日時

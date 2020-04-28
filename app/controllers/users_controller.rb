@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :login_required, only: [:new, :create]
-  before_action :user_find, only: [:show]
+  before_action :user_find, only: [:edit,:update, :show, :destroy]
   before_action :current_user_action_only, only: [:show]
 
   def new 
@@ -21,18 +21,43 @@ class UsersController < ApplicationController
     end 
   end
 
+  def update
+    if params[:user][:password].blank?
+      params[:user].delete("password")
+      params[:user].delete("password_confirmation")
+    end
+    if @user.update(User.update_params(user_params))
+      redirect_to admin_user_path(current_user.id)
+    else
+      render :new
+    end 
+  end
+
+  def destroy
+    if params[:admin]
+      if @user.destroy
+        @users = User.all    
+        render "admin/users/show"
+      else
+        @users = User.all    
+        render "admin/users/show"
+      end
+    end
+  end
+
   def show; end
+  def edit; end
 
   private 
   def user_params
-    params.require(:user).permit(:name, :email, :image, :profile, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email,:admin, :password, :password_confirmation)
   end
 
   def user_find
     @user = User.find_by(id: params[:id])
   end
   
-  def current_user_action_only()
+  def current_user_action_only
     redirect_to user_path(current_user.id) unless @user.id == current_user.id
   end
 

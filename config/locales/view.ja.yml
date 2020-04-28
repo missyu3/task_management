@@ -9,6 +9,9 @@ ja:
     update: 更新
     delete: 削除
     search: 検索
+    user_delete: ユーザー削除
+    user_update: ユーザー更新
+    user_create: ユーザー作成
     attach_admin: 管理者権限を付与
     delete_admin: 管理者権限を削除
   state:
