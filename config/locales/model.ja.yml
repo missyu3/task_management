@@ -3,6 +3,7 @@ ja:
   activerecord:
     models:
       task: タスク
+      user: ユーザー
     attributes:
       task:
         title: タイトル
