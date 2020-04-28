@@ -30,15 +30,15 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if params[:admin]
-      if @user.destroy
-        @users = User.all    
-        render "admin/users/show"
-      else
-        @users = User.all    
-        render "admin/users/show"
+    return unless params[:admin]
+    user_id = @user.id
+    if @user.destroy
+      if user_id == current_user.id
+        session[:user_id] = nil
+        redirect_to new_session_path
       end
     end
+    redirect_to admin_user_path(current_user.id)
   end
 
   def show; end
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   end
   
   def current_user_action_only
-    redirect_to user_path(current_user.id) unless @user.id == current_user.id
+    redirect_to user_path(current_user.id) unless @user && @user.id == current_user.id
   end
 
 end

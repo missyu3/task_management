@@ -24,6 +24,11 @@ RSpec.describe '管理者機能に関して', type: :system do
         find(".admin_delete_3").click
         expect(User.find_by(id: 3).admin).to eq false
       end
+      it "管理者権限が一つだけの時、削除できないか" do
+        find(".admin_delete_3").click
+        find(".admin_delete_1").click
+        expect(User.find_by(id: 1).admin).to eq true
+      end
     end
 
     context "管理者によるユーザーの登録機能に関して" do

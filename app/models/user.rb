@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include SessionsHelper
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   before_validation { email.downcase! }
@@ -12,4 +14,12 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :tasks, dependent: :destroy
+
+  before_update :only_admin_user_not_destroy 
+  before_destroy :only_admin_user_not_destroy
+
+  private
+  def only_admin_user_not_destroy
+    throw(:abort) if self.admin_was == true && User.all.where("admin = ? ", true).count <= 1
+  end
 end
