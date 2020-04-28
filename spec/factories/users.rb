@@ -4,5 +4,6 @@ FactoryBot.define do
     name { "user1"}
     email { "user@user.com" }
     password { "password" }
+    admin { false }
   end
 end

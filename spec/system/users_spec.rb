@@ -14,17 +14,5 @@ RSpec.describe 'ユーザー機能に関して', type: :system do
         expect(page).to have_content "user_nameの部屋"
       end
     end
-    context "ログイン機能に関して" do
-      before "登録項目の入力" do
-        FactoryBot.create(:user)
-        visit new_task_path
-        fill_in "Eメール", with: "user@user.com"
-        fill_in "パスワード", with: "password"
-        click_button "ログイン"
-      end
-      it "ログイン" do
-        expect(page).to have_content "user1の部屋"
-      end
-    end
   end
 end
