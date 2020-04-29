@@ -64,5 +64,22 @@ RSpec.describe '管理者機能に関して', type: :system do
         expect(User.find_by(id: 2).admin).to eq true
       end
     end
+  
+    context "管理者権限がないものは管理者画面に入れないか" do
+      before "登録項目の入力" do
+        FactoryBot.create(:user, admin:false)
+        visit new_task_path
+        fill_in "Eメール", with: "user@user.com"
+        fill_in "パスワード", with: "password"
+        click_button "ログイン"
+      end
+      it "管理者画面に遷移するボタンが表示されていないか" do
+        expect(page).to_not have_content "管理者画面"
+      end
+      it "管理者画面に遷移するボタンが表示されていないか" do
+        visit admin_user_path(1)
+        expect(page).to have_content "ユーザー：user1の部屋"
+      end
+    end
   end
 end

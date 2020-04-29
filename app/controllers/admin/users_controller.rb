@@ -49,6 +49,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def admin_required
-    redirect_to user_path(current_user.id) unless current_user.admin
+    redirect_to user_path(current_user.id) unless current_user.admin?
   end
 end
