@@ -13,7 +13,7 @@ skip_before_action :login_required
     else
       @user = User.new
       flash.now[:danger] = 'ログインに失敗しました'
-      render "new"
+      render :new
     end
   end
 

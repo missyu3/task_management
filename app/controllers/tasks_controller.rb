@@ -12,7 +12,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to tasks_path, notice: I18n.t("message.task_create", title: @task.title)
     else
-      render "new"
+      render :new
     end
   end
 
@@ -22,7 +22,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to tasks_path, notice: I18n.t("message.task_update", title: @task.title)
     else
-      render "edit"
+      render :edit
     end
   end
 
