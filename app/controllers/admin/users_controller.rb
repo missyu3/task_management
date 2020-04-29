@@ -18,7 +18,7 @@ class Admin::UsersController < ApplicationController
   def update
     @user.admin = true
     if @user.save(validate: false)
-      redirect_to admin_user_path(current_user.id)
+      redirect_to admin_user_path(current_user)
     else
       @users = User.all.includes(:tasks)
       render :show
@@ -28,7 +28,7 @@ class Admin::UsersController < ApplicationController
   def destroy
     @user.admin = false
     if @user.save(validate: false)
-      redirect_to admin_user_path(current_user.id)
+      redirect_to admin_user_path(current_user)
     else
       @users = User.all.includes(:tasks)
       render :show

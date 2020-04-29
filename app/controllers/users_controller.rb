@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to user_path(@user.id)
+      redirect_to user_path(@user)
     else
       render :new
     end 
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to admin_user_path(current_user.id)
+      redirect_to admin_user_path(current_user)
     else
       render :new
     end 
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
         redirect_to new_session_path
       end
     end
-    redirect_to admin_user_path(current_user.id)
+    redirect_to admin_user_path(current_user)
   end
 
   def show; end
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
   
   def current_user_action_only
     return if current_user.admin == true
-    redirect_to user_path(current_user.id) unless @user && @user.id == current_user.id
+    redirect_to user_path(current_user) unless @user && @user.id == current_user.id
   end
 
 end
