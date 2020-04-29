@@ -4,9 +4,9 @@ RSpec.describe '管理者機能に関して', type: :system do
 
     context "管理者画面に関して" do
       before "登録項目の入力" do
-        user = FactoryBot.create(:user, admin:true)
-        FactoryBot.create(:user, id:2, name:"user2",email:"test2@test.com",admin:false)
-        FactoryBot.create(:user, id:3, name:"user3",email:"test3@test.com",admin:true)
+        user = create(:user, admin:true)
+        create(:user, id:2, name:"user2",email:"test2@test.com",admin:false)
+        create(:user, id:3, name:"user3",email:"test3@test.com",admin:true)
         visit new_task_path
         fill_in "Eメール", with: "user@user.com"
         fill_in "パスワード", with: "password"
@@ -33,8 +33,8 @@ RSpec.describe '管理者機能に関して', type: :system do
 
     context "管理者によるユーザーの登録機能に関して" do
       before "登録項目の入力" do
-        FactoryBot.create(:user, admin:true)
-        FactoryBot.create(:user, id:2, name:"user2",email:"test2@test.com",admin:true)
+        create(:user, admin:true)
+        create(:user, id:2, name:"user2",email:"test2@test.com",admin:true)
         visit new_task_path
         fill_in "Eメール", with: "user@user.com"
         fill_in "パスワード", with: "password"
@@ -67,7 +67,7 @@ RSpec.describe '管理者機能に関して', type: :system do
   
     context "管理者権限がないものは管理者画面に入れないか" do
       before "登録項目の入力" do
-        FactoryBot.create(:user, admin:false)
+        create(:user, admin:false)
         visit new_task_path
         fill_in "Eメール", with: "user@user.com"
         fill_in "パスワード", with: "password"

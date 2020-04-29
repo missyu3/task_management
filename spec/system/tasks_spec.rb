@@ -1,7 +1,7 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   before do
-    FactoryBot.create(:user)
+    create(:user)
     visit tasks_path
     fill_in "Eメール", with: "user@user.com"
     fill_in "パスワード", with: "password"
@@ -10,7 +10,7 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe 'タスク一覧画面' do    
     context 'タスク一覧画面のタスク情報を画面表示する機能に関して' do
       before do
-        FactoryBot.create(:task)
+        create(:task)
         visit tasks_path
       end
       it "titleが一覧画面に表示されているか" do
@@ -32,10 +32,10 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context 'タスク一覧画面のタスク情報を削除する機能に関して' do
       before do
-        FactoryBot.create(:task, id:1, title: "test1", content: "content1")
-        FactoryBot.create(:task, id:2, title: "test2", content: "content2")
-        FactoryBot.create(:task, id:3, title: "test3", content: "content3")
-        FactoryBot.create(:task, id:4, title: "test4", content: "content4")
+        create(:task, id:1, title: "test1", content: "content1")
+        create(:task, id:2, title: "test2", content: "content2")
+        create(:task, id:3, title: "test3", content: "content3")
+        create(:task, id:4, title: "test4", content: "content4")
         visit tasks_path
       end
       it "test3が一覧画面に表示されていないか" do
@@ -46,12 +46,12 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context '一覧画面の検索機能に関して' do
       before do
-        FactoryBot.create(:task, id:1, title: "hogehoge1", status: "0", priority: "0")
-        FactoryBot.create(:task, id:2, title: "hogehoge2", status: "0", priority: "1")
-        FactoryBot.create(:task, id:3, title: "hogehoge3", status: "1", priority: "2")
-        FactoryBot.create(:task, id:4, title: "hogehoge4", status: "1", priority: "0")
-        FactoryBot.create(:task, id:5, title: "hogehoge5", status: "2", priority: "1")
-        FactoryBot.create(:task, id:6, title: "hugahuga6", status: "2", priority: "2")
+        create(:task, id:1, title: "hogehoge1", status: "0", priority: "0")
+        create(:task, id:2, title: "hogehoge2", status: "0", priority: "1")
+        create(:task, id:3, title: "hogehoge3", status: "1", priority: "2")
+        create(:task, id:4, title: "hogehoge4", status: "1", priority: "0")
+        create(:task, id:5, title: "hogehoge5", status: "2", priority: "1")
+        create(:task, id:6, title: "hugahuga6", status: "2", priority: "2")
         visit tasks_path
       end
 
@@ -66,10 +66,10 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context '一覧画面の状態の表示に関して' do
       before do
-        FactoryBot.create(:task, status: 0)
-        FactoryBot.create(:task, status: 1)
-        FactoryBot.create(:task, status: 2)
-        FactoryBot.create(:task, status: 3)
+        create(:task, status: 0)
+        create(:task, status: 1)
+        create(:task, status: 2)
+        create(:task, status: 3)
         visit tasks_path
       end
       # [["未着手",0],["着手中",1],["完了",2],["凍結",3]]
@@ -89,10 +89,10 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context '一覧画面でログインしているユーザーのタスクしか表示されていないか' do
       before do
-        user1 = FactoryBot.create(:user, id:2, name: "hogehoge1", email: "test1@test.com")
-        FactoryBot.create(:task, id:1, title: "hogehoge1", status: "0", priority: "0", user_id: 2)
-        FactoryBot.create(:task, id:2, title: "hogehoge2", status: "0", priority: "1", user_id: 1)
-        FactoryBot.create(:task, id:3, title: "hogehoge3", status: "1", priority: "2", user_id: 2)
+        user1 = create(:user, id:2, name: "hogehoge1", email: "test1@test.com")
+        create(:task, id:1, title: "hogehoge1", status: "0", priority: "0", user_id: 2)
+        create(:task, id:2, title: "hogehoge2", status: "0", priority: "1", user_id: 1)
+        create(:task, id:3, title: "hogehoge3", status: "1", priority: "2", user_id: 2)
         visit tasks_path
       end
 
@@ -106,10 +106,10 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context '一覧画面でソート機能が正常に稼働しているか' do
       before do
-        FactoryBot.create(:task, id: 1,title: "title1", limit: Time.current + 1.days)
-        FactoryBot.create(:task, id: 2,title: "title2", limit: Time.current + 4.days)
-        FactoryBot.create(:task, id: 3,title: "title3", limit: Time.current + 2.days)
-        FactoryBot.create(:task, id: 4,title: "title4", limit: Time.current + 3.days)
+        create(:task, id: 1,title: "title1", limit: Time.current + 1.days)
+        create(:task, id: 2,title: "title2", limit: Time.current + 4.days)
+        create(:task, id: 3,title: "title3", limit: Time.current + 2.days)
+        create(:task, id: 4,title: "title4", limit: Time.current + 3.days)
         visit tasks_path
       end
       it "limitのOrderByの降順が効いているか" do
@@ -180,7 +180,7 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe 'タスク編集画面' do
     context '任意のタスク編集画面に遷移後、該当タスクの編集を行い一覧画面に遷移する' do
       before do
-        task = FactoryBot.create(:task, title: "test1" , content: "content1" , status: 2 , limit: "2024-05-23")
+        task = create(:task, title: "test1" , content: "content1" , status: 2 , limit: "2024-05-23")
         visit edit_task_path(task.id)
       end
       it "contentをcontent1からhoge1に変更" do
@@ -194,7 +194,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context '任意のタスク詳細画面に遷移したら、該当タスクの内容が表示されたページに遷移する' do
       before do
-        task = FactoryBot.create(:task, title: "test1" , content: "content1" , status: 2 , limit: "2024-05-23")
+        task = create(:task, title: "test1" , content: "content1" , status: 2 , limit: "2024-05-23")
         visit task_path(task.id)
       end
       it "詳細画面に選択されたタスクが表示されているか" do
