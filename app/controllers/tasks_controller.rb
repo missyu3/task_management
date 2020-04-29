@@ -59,10 +59,6 @@ class TasksController < ApplicationController
   end
 
   def swich_params
-    if params[:task]
-      params[:task]
-    else
-      {title: params[:title], status: params[:status], priority: params[:priority]}
-    end
+    params[:task] || { title: params[:title], status: params[:status], priority: params[:priority] }
   end
 end
