@@ -5,6 +5,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @labels = Label.all
   end
 
   def create
@@ -16,7 +17,9 @@ class TasksController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @labels = Label.all
+  end
 
   def update
     if @task.update(task_params)
@@ -27,17 +30,17 @@ class TasksController < ApplicationController
   end
 
   def index
-    tasks = current_user.tasks
+    tasks = current_user.tasks.includes(:labels)
     params_task = swich_params
-    tasks = tasks.search_index(params_task[:title],params_task[:status],params_task[:priority]) if params_task
+    tasks = tasks.search_index(params_task[:title],params_task[:status],params_task[:priority],params_task[:label_ids]) if params_task
     if params[:sort]
       tasks = tasks.order_by(params[:column], params[:sort])
     else
       tasks = tasks.created_before
     end
     @tasks = tasks.page(params[:page]).per(PER)
-    @where = {title: nil, status: nil, priority: nil}
-    @where = params_task if params_task
+    @where = params_task || {title: nil, status: nil, priority: nil, label_ids: []}
+    @labels = Label.all
     #form_withに与える引数はTaskクラスにしないとLabelの文言変換が行われないため、@task = Task.newをする。
     @task = Task.new
   end
@@ -56,10 +59,12 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :status, :limit, :priority, :user_id)
+    params.require(:task).permit(:title, :content, :status, :limit, :priority, :user_id, label_ids: [])
   end
 
   def swich_params
-    params[:task] || { title: params[:title], status: params[:status], priority: params[:priority] }
+    labels = params[:label_ids] || Array.new
+    params[:task] || { title: params[:title], status: params[:status], priority: params[:priority], label_ids: labels }
   end
+
 end

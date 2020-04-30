@@ -41,11 +41,22 @@
       </div>
     </div>
     <div class="row">
-    <div class="col-md-2">
+      <div class="col-md-2">
+        <%=  I18n.t("activerecord.models.label") %>
+      </div>
+      <div div class="col-md-8">
+        <% @labels.each do |label| %>
+          <%= f.check_box :label_ids, {multiple: true, checked: task.labels.ids.include?(label.id), include_hidden: false}, label[:id] %>
+          <label><%= label.name %></label>
+        <% end %>
+      </div>
     </div>
-    <div class="col-md-8">
-      <%= f.submit nil, { class: "btn btn-info" } %>
-    </div>
+    <div class="row">
+      <div class="col-md-2">
+      </div>
+      <div div class="col-md-8">
+        <%= f.submit nil, { class: "btn btn-info" } %>
+      </div>
     </div>
   </div>
 <% end %>

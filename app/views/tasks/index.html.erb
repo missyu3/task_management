@@ -6,6 +6,12 @@
   <%= form.select(:status, options_for_select(TasksHelper::LIMIT_TASK_STATUS, @where[:status]),include_blank:true) %>
   <%= form.label :priority %>
   <%= form.select(:priority, options_for_select(TasksHelper::PRIORITY_STATUS, @where[:priority]),include_blank:true) %>
+  <br>
+  <% @labels.each do |label| %>
+    <%= form.check_box :label_ids, {multiple: true, checked: @where[:label_ids].include?(label.id.to_s), include_hidden: false}, label[:id] %>
+    <label><%= label.name %></label>
+    <% end %>
+  <br>
   <%= form.submit(I18n.t("button.search"),{ class: "btn btn-info" } ) %>
   <br>
   <br>
@@ -15,21 +21,22 @@
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th><%= I18n.t("activerecord.attributes.tasks.title") %></th>
-      <th><%= I18n.t("activerecord.attributes.label.user_id") %></th>
-      <th><%= I18n.t("activerecord.attributes.label.content") %></th>
-      <th><%= I18n.t("activerecord.attributes.label.status") %></th>
+      <th><%= I18n.t("activerecord.attributes.task.title") %></th>
+      <th><%= I18n.t("activerecord.attributes.task.user_id") %></th>
+      <th><%= I18n.t("activerecord.attributes.task.content") %></th>
+      <th><%= I18n.t("activerecord.attributes.task.status") %></th>
       <th>
         <%= I18n.t("display.limit") %>
-        <%= link_to "▲", tasks_path(column: "limit", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority]), { id: "limit_asc" } %>
-        <%= link_to "▼", tasks_path(column: "limit", sort: "DESC", title: @where[:title], status: @where[:status], priority: @where[:priority]), { id: "limit_desc" } %>
+        <%= link_to "▲", tasks_path(column: "limit", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority], label_ids: @where[:label_ids]), { id: "limit_asc" } %>
+        <%= link_to "▼", tasks_path(column: "limit", sort: "DESC", title: @where[:title], status: @where[:status], priority: @where[:priority], label_ids: @where[:label_ids]), { id: "limit_desc" } %>
       </th>
       <th>
         <%= I18n.t("display.priority") %>
-        <%= link_to "▲", tasks_path(column: "priority", sort: "DESC", title: @where[:title], status: @where[:status], priority: @where[:priority]), {id: "priority_desc"}  %>
-        <%= link_to "▼", tasks_path(column: "priority", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority]), {id: "priority_asc"}  %><br>
+        <%= link_to "▲", tasks_path(column: "priority", sort: "DESC", title: @where[:title], status: @where[:status], priority: @where[:priority], label_ids: @where[:label_ids]), {id: "priority_desc"}  %>
+        <%= link_to "▼", tasks_path(column: "priority", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority], label_ids: @where[:label_ids]), {id: "priority_asc"}  %><br>
       </th>
-      <th> I18n.t("activerecord.attributes.tasks.created_at") </th>
+      <th><%=  I18n.t("activerecord.models.label") %></th>
+      <th><%=  I18n.t("activerecord.attributes.task.created_at") %></th>
       <th></th>
       <th></th>
     </tr>
@@ -45,6 +52,11 @@
         <td><%= view_task_status(task.status) %></td>
         <td><%= format_date(task.limit) %></td>
         <td><%= view_priority_status(task.priority) %></td>
+        <td>
+          <% task.labels.each do |label| %>
+          <%= label.name %><br>
+          <% end %>
+        </td>
         <td><%= format_date(task.created_at) %></td>
         <td><%= link_to I18n.t("button.update"), edit_task_path(task.id) ,id: "edit_#{task.id}", class: "btn btn-primary pull-left" %></td>
         <td><%= link_to I18n.t("button.delete"), task_path(task.id) ,method: :delete ,id: "delete_#{task.id}", class: "btn btn-danger pull-left"%></td>

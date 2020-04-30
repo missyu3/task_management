@@ -4,6 +4,7 @@ ja:
     models:
       task: タスク
       user: ユーザー
+      label: ラベル
     attributes:
       task:
         title: タイトル
