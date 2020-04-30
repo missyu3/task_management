@@ -19,6 +19,7 @@ class User < ApplicationRecord
   before_destroy :only_admin_user_not_destroy
 
   private
+  
   def only_admin_user_not_destroy
     throw(:abort) if self.admin_was == true && User.all.where("admin = ? ", true).count <= 1
   end

@@ -50,6 +50,7 @@ class TasksController < ApplicationController
   end
 
   private
+  
   def find_params
     @task = Task.find(params[:id])
   end
