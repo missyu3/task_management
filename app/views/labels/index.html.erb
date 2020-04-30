@@ -1,10 +1,10 @@
 <h1><%= I18n.t("display.index") %></h1>
-<%= link_to I18n.t("button.create"), new_label_path,{ class: "btn btn-primary pull-left" } %>
+<%= link_to I18n.t("button.label_create"), new_label_path,{ class: "btn btn-primary pull-left" } %>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th>名前</th>
-      <th>作成日時</th>
+      <th><%= I18n.t("activerecord.attributes.label.name") %></th>
+      <th><%= I18n.t("activerecord.attributes.label.created_at") %></th>
       <th></th>
     </tr>
   </thead>

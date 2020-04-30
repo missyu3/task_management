@@ -15,6 +15,7 @@ ja:
     user_create: ユーザー作成
     attach_admin: 管理者権限を付与
     delete_admin: 管理者権限を削除
+    label_create: ラベル作成
   state:
     waiting: 未着手
     working: 着手中

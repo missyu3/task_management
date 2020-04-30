@@ -15,10 +15,10 @@
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th>タイトル</th>
-      <th>担当者</th>
-      <th>コンテンツ</th>
-      <th>状態</th>
+      <th><%= I18n.t("activerecord.attributes.tasks.title") %></th>
+      <th><%= I18n.t("activerecord.attributes.label.user_id") %></th>
+      <th><%= I18n.t("activerecord.attributes.label.content") %></th>
+      <th><%= I18n.t("activerecord.attributes.label.status") %></th>
       <th>
         <%= I18n.t("display.limit") %>
         <%= link_to "▲", tasks_path(column: "limit", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority]), { id: "limit_asc" } %>
@@ -29,7 +29,7 @@
         <%= link_to "▲", tasks_path(column: "priority", sort: "DESC", title: @where[:title], status: @where[:status], priority: @where[:priority]), {id: "priority_desc"}  %>
         <%= link_to "▼", tasks_path(column: "priority", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority]), {id: "priority_asc"}  %><br>
       </th>
-      <th>作成日時</th>
+      <th> I18n.t("activerecord.attributes.tasks.created_at") </th>
       <th></th>
       <th></th>
     </tr>
