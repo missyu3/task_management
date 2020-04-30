@@ -1,5 +1,6 @@
 <h1><%= I18n.t("display.admin_page", name: current_user.name) %></h1>
 <%= link_to I18n.t("button.user_create"), new_admin_user_path , class: "btn btn-primary pull-left" %>
+<%= link_to I18n.t("button.create"), new_label_path,{ class: "btn btn-primary pull-left" } %>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>

@@ -1,0 +1,20 @@
+<h1><%= I18n.t("display.index") %></h1>
+<%= link_to I18n.t("button.create"), new_label_path,{ class: "btn btn-primary pull-left" } %>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>名前</th>
+      <th>作成日時</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @labels.each do |label| %>
+      <tr>
+        <td><%= label.name %></td>
+        <td><%= format_date(label.created_at) %></td>
+        <td><%= link_to I18n.t("button.delete"), label_path(label.id) ,method: :delete ,id: "delete_#{label.id}", class: "btn btn-danger pull-left"%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
