@@ -21,9 +21,9 @@
         <td><%= format_date(user.created_at) %></td>
         <td>
           <% if user.admin %>
-            <%= link_to I18n.t("button.delete_admin"), admin_user_path(user.id) ,method: :delete , class: "admin_delete_#{user.id} btn btn-danger pull-left"%>
+            <%= link_to I18n.t("button.delete_admin"), admin_user_path(user.id, admin: false) ,method: :put, class: "admin_delete_#{user.id} btn btn-danger pull-left"%>
           <% else %>
-            <%= link_to I18n.t("button.attach_admin"), admin_user_path(user.id) ,method: :put, class: "admin_update_#{user.id} btn btn-primary pull-left" %>
+            <%= link_to I18n.t("button.attach_admin"), admin_user_path(user.id, admin: true) ,method: :put, class: "admin_update_#{user.id} btn btn-primary pull-left" %>
           <% end %>
         </td>
         <td>

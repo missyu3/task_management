@@ -16,17 +16,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    @user.admin = true
-    if @user.save(validate: false)
-      redirect_to admin_user_path(current_user)
-    else
-      @users = User.all.includes(:tasks)
-      render :show
-    end
-  end
-
-  def destroy
-    @user.admin = false
+    @user.admin = params[:admin]
     if @user.save(validate: false)
       redirect_to admin_user_path(current_user)
     else
