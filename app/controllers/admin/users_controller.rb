@@ -9,7 +9,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to admin_user_path(current_user.id)
+      redirect_to admin_user_path(current_user)
     else
       render :new
     end
@@ -39,6 +39,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def admin_required
-    redirect_to user_path(current_user.id) unless current_user.admin?
+    redirect_to user_path(current_user) unless current_user.admin?
   end
 end
