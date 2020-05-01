@@ -34,6 +34,16 @@
   </div>
   <div class="row">
     <div class="col-sm-2 text-right">
+      <%= I18n.t("activerecord.models.label") %>
+    </div>
+    <div class="col-sm-10">
+      <% @task.labels.each do |label|  %>
+        <%= label.name  %><br>
+      <% end  %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2 text-right">
     </div>
     <div class="col-sm-10 text-right">
       <%= link_to I18n.t("button.update"), edit_task_path(@task.id), { class: "btn btn-primary pull-left" } %>
