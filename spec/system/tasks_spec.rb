@@ -32,10 +32,10 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context 'タスク一覧画面のタスク情報を削除する機能に関して' do
       before do
-        create(:task, id:1, title: "test1", content: "content1")
-        create(:task, id:2, title: "test2", content: "content2")
-        create(:task, id:3, title: "test3", content: "content3")
-        create(:task, id:4, title: "test4", content: "content4")
+        create(:task, id: 1, title: "test1", content: "content1")
+        create(:task, id: 2, title: "test2", content: "content2")
+        create(:task, id: 3, title: "test3", content: "content3")
+        create(:task, id: 4, title: "test4", content: "content4")
         visit tasks_path
       end
       it "test3が一覧画面に表示されていないか" do
@@ -52,6 +52,11 @@ RSpec.describe 'タスク管理機能', type: :system do
         create(:task, id:4, title: "hogehoge4", status: "1", priority: "0")
         create(:task, id:5, title: "hogehoge5", status: "2", priority: "1")
         create(:task, id:6, title: "hugahuga6", status: "2", priority: "2")
+        create(:label, id:1, name: "Ruby")
+        create(:label, id:2, name: "Python")
+        create(:label, id:3, name: "Go")
+        create(:distinction, task_id: 1, label_id: 1)
+        create(:distinction, task_id: 1, label_id: 2)
         visit tasks_path
       end
 
@@ -61,6 +66,13 @@ RSpec.describe 'タスク管理機能', type: :system do
         select '低', from: '重要度'
         click_on "検索"
         expect(page).to have_content "hogehoge3"
+      end 
+      it "hogehoge3のみが表示されているか" do
+        fill_in "タイトル", with: "geh"
+        check "task_label_ids_2"
+        click_on "検索"
+        expect(page).to have_content "hogehoge1"
+        expect(page).to_not have_content "hogehoge2"
       end 
     end
 
@@ -130,6 +142,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         end
         expect(tasks).to eq ["title1","title3","title4","title2"]
       end
+
       it "検索後のOrderByの降順が聞いているか" do
         fill_in "タイトル", with: "title"
         click_on "検索"
