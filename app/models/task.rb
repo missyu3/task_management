@@ -6,7 +6,10 @@ class Task < ApplicationRecord
   scope :title_include, -> (title) { where("title LIKE ?", "%#{title}%") if title.present?}
   scope :status_equal, -> (status) { where("status = ?", status) if status.present? }
   scope :priority_equal, -> (priority) {where("priority = ?",priority) if priority.present?}
-  scope :label_include, -> (labels) { where(labels: { id: labels}) if labels.present? }
+  scope :label_include, -> (labels) {
+  labels.delete("0") if labels.present? 
+  where(labels: { id: labels}) if labels.present? 
+  }
 
   belongs_to :user
   has_many :distinctions

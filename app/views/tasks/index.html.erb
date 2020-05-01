@@ -8,7 +8,7 @@
   <%= form.select(:priority, options_for_select(TasksHelper::PRIORITY_STATUS, @where[:priority]),include_blank:true) %>
   <br>
   <% @labels.each do |label| %>
-    <%= form.check_box :label_ids, {multiple: true, checked: @where[:label_ids].include?(label.id.to_s), include_hidden: false}, label[:id] %>
+    <%= form.check_box :label_ids, {multiple: true, checked: @where[:label_ids].include?(label.id.to_s), include_hidden: true}, label[:id] %>
     <label><%= label.name %></label>
     <% end %>
   <br>

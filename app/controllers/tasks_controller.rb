@@ -39,7 +39,7 @@ class TasksController < ApplicationController
       tasks = tasks.created_before
     end
     @tasks = tasks.page(params[:page]).per(PER)
-    @where = params_task || {title: nil, status: nil, priority: nil, label_ids: []}
+    @where = params_task || {title: nil, status: nil, priority: nil, label_ids: Array.new}
     @labels = Label.all
     #form_withに与える引数はTaskクラスにしないとLabelの文言変換が行われないため、@task = Task.newをする。
     @task = Task.new
@@ -64,7 +64,7 @@ class TasksController < ApplicationController
 
   def swich_params
     labels = params[:label_ids] || Array.new
-    params[:task] || { title: params[:title], status: params[:status], priority: params[:priority], label_ids: labels }
+    value = params[:task] || { title: params[:title], status: params[:status], priority: params[:priority], label_ids: labels }
   end
 
 end
