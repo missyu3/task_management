@@ -1,0 +1,62 @@
+<%= form_with(model: task, local: true) do |f| %>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2 text-right">
+        <%= f.label :title %>
+      </div>
+      <div class="col-md-10">
+        <%= f.text_field :title, { class: "form-control" }%>
+      </div> 
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">
+        <%= f.label :content %> 
+      </div>
+      <div class="col-md-10">
+        <%= f.text_area :content, { class: "form-control" } %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">
+        <%= f.label :status %>
+      </div>
+      <div class="col-md-10">
+        <%= f.select(:status, TasksHelper::LIMIT_TASK_STATUS) %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">
+        <%= f.label :priority %>
+      </div>
+      <div class="col-md-10">
+        <%= f.select(:priority, TasksHelper::PRIORITY_STATUS ) %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">
+        <%= f.label :limit %>
+      </div>
+      <div class="col-md-10">
+        <%= f.date_select :limit, use_month_numbers: true, default: { year: today.year, month: today.month, day: today.day } %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <%=  I18n.t("activerecord.models.label") %>
+      </div>
+      <div div class="col-md-8">
+        <% @labels.each do |label| %>
+          <%= f.check_box :label_ids, {multiple: true, checked: task.labels.ids.include?(label.id), include_hidden: false}, label[:id] %>
+          <label><%= label.name %></label>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+      </div>
+      <div div class="col-md-8">
+        <%= f.submit nil, { class: "btn btn-info" } %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,37 @@
+---
+ja:
+  message: 
+    task_create: タスク%{title}の作成を行いました。
+    task_update: タスク%{title}の更新を行いました。
+    task_delete: タスク%{title}の削除を行いました。
+  button:
+    create: 新規作成
+    update: 更新
+    delete: 削除
+    search: 検索
+    tasks: タスク一覧
+    user_delete: ユーザー削除
+    user_update: ユーザー更新
+    user_create: ユーザー作成
+    attach_admin: 管理者権限を付与
+    delete_admin: 管理者権限を削除
+    label_create: ラベル作成
+    label_index: ラベル一覧
+  state:
+    waiting: 未着手
+    working: 着手中
+    completed: 完了
+    pending: 凍結
+  priority:
+    high: 高
+    medium: 中
+    low: 低
+  display:
+    show: 詳細画面
+    index: 一覧画面
+    index: 一覧画面
+    admin: 管理者画面
+    limit: 期限
+    priority: 重要度
+    user_page: ユーザー：%{name}の部屋
+    admin_page: 管理者：%{name}の部屋
