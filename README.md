@@ -1,24 +1,51 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## ER図
+- 保存場所
+  - docs/er.puml
+- 画像
+  - ![ER](docs/er.png)
+## Table設計
+- テーブル名
+  - 列名
+    - 型
+- users
+  - id
+    - integer
+  - name
+    - string
+  - email
+    - string
+  - password_digest
+    - string
+  - admin
+    - boolean
+  - created_at
+    - datetime
+  - updated_at
+    - datetime
+- tasks
+  - id
+    - integer
+  - title
+    - string
+  - content
+    - text
+  - status
+    - string
+  - limit
+    - date
+  - user_id
+    - integer
+  - created_at
+    - datetime
+  - updated_at
+    - datetime
+- tags
+  - name
+    - string
+  - task_id
+    - integer
+  - created_at
+    - datetime
+  - updated_at
+    - datetime
+  
