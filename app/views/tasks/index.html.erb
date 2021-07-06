@@ -1,0 +1,55 @@
+<h1><%= I18n.t("display.index") %></h1>
+<%= form_with(model: @task, url: tasks_path, method: :get, local: true) do |form| %>
+  <%= form.label :title %>
+  <%= form.text_field :title , value: @where[:title] %>
+  <%= form.label :status %>
+  <%= form.select(:status, options_for_select(TasksHelper::LIMIT_TASK_STATUS, @where[:status]),include_blank:true) %>
+  <%= form.label :priority %>
+  <%= form.select(:priority, options_for_select(TasksHelper::PRIORITY_STATUS, @where[:priority]),include_blank:true) %>
+  <%= form.submit(I18n.t("button.search"),{ class: "btn btn-info" } ) %>
+  <br>
+  <br>
+  <%= link_to I18n.t("button.create"), new_task_path,{ class: "btn btn-primary pull-left" } %>
+<% end %> 
+<br>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>担当者</th>
+      <th>コンテンツ</th>
+      <th>状態</th>
+      <th>
+        <%= I18n.t("display.limit") %>
+        <%= link_to "▲", tasks_path(column: "limit", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority]), { id: "limit_asc" } %>
+        <%= link_to "▼", tasks_path(column: "limit", sort: "DESC", title: @where[:title], status: @where[:status], priority: @where[:priority]), { id: "limit_desc" } %>
+      </th>
+      <th>
+        <%= I18n.t("display.priority") %>
+        <%= link_to "▲", tasks_path(column: "priority", sort: "DESC", title: @where[:title], status: @where[:status], priority: @where[:priority]), {id: "priority_desc"}  %>
+        <%= link_to "▼", tasks_path(column: "priority", sort: "ASC", title: @where[:title], status: @where[:status], priority: @where[:priority]), {id: "priority_asc"}  %><br>
+      </th>
+      <th>作成日時</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td class="test_title">
+          <%= link_to task.title, task_path(task.id) %>
+        </td>
+        <td><%= task.user.name %></td>
+        <td><%= task.content %></td>
+        <td><%= view_task_status(task.status) %></td>
+        <td><%= format_date(task.limit) %></td>
+        <td><%= view_priority_status(task.priority) %></td>
+        <td><%= format_date(task.created_at) %></td>
+        <td><%= link_to I18n.t("button.update"), edit_task_path(task.id) ,id: "edit_#{task.id}", class: "btn btn-primary pull-left" %></td>
+        <td><%= link_to I18n.t("button.delete"), task_path(task.id) ,method: :delete ,id: "delete_#{task.id}", class: "btn btn-danger pull-left"%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @tasks, left: 2, right: 2 %>

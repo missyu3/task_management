@@ -1,0 +1,14 @@
+---
+ja:
+  activerecord:
+    models:
+      task: task
+    attributes:
+      task:
+        title: title
+        content: content
+        status: status
+        limit: limit
+        priority: priority
+        created_at: created at
+        updated_at: updated at
