@@ -1,0 +1,14 @@
+---
+ja:
+  message_task_create: タスク%{title}の作成を行いました。
+  message_task_update: タスク%{title}の更新を行いました。
+  message_task_delete: タスク%{title}の削除を行いました。
+  button_create: 新規作成
+  button_update: 更新
+  button_delete: 削除
+  display_show: 詳細画面
+  state_waiting: 未着手
+  state_working: 着手中
+  state_completed: 完了
+  state_pending: 凍結
+  
