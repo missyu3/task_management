@@ -1,0 +1,39 @@
+@startuml
+
+
+entity "users" {
+  * id : integer <<generated>>
+  --
+  name : string
+  email : string <<重複不可>>
+  password_digest : string
+  admin : boolean <<default:false>>
+  created_at : datetime
+  updated_at : datetime
+}
+
+entity "tasks" {
+  * id : integer <<generated>>
+  --
+  title : string
+  content : text
+  status : string
+  limit : date
+  user_id : integer <<FK>>
+  created_at : datetime
+  updated_at : datetime
+}
+
+entity "tags" {
+  * id : integer <<generated>>
+  --
+  name : string <<重複不可>>
+  task_id : integer <<FK>>
+}
+
+users ||--o{ tasks
+tasks ||--o{ tags
+
+@enduml
+
+
